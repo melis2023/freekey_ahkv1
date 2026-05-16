@@ -1,4 +1,4 @@
-# 🎯 ColorKeyAutomation — 屏幕取色自动按键工具
+# 🎯 freekeyAutomation — 屏幕取色自动按键工具
 
 > **单文件·零依赖·纯 AutoHotkey v1 实现**  
 > 屏幕像素颜色识别 → 条件触发 → 自动模拟按键
@@ -9,7 +9,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                 ColorKeyAutomation                      │
+│                 freekeyAutomation                      │
 │         屏幕取色识别 → 条件触发 → 自动按键循环            │
 │                                                         │
 │  取色工具 ◄──► 配置面板 ◄──► 主循环引擎 ◄──► INI持久化    │
@@ -19,7 +19,7 @@
 
 | 属性 | 值 |
 |------|-----|
-| 📄 源码 | `ColorKeyAutomation.ahk` (1033行) |
+| 📄 源码 | `freekeyAutomation.ahk` (1033行) |
 | ⚙️ 配置 | `config.ini` (自动生成) |
 | 🧩 依赖 | 无 — 纯 AHK 内置函数 |
 | 🔧 语言 | AutoHotkey v1.1+ |
@@ -423,19 +423,19 @@ PrintScreen, Pause, Break, AppsKey, Sleep
 ## 🚀 快速开始
 
 ```bash
-# 1. 下载 ColorKeyAutomation.ahk
+# 1. 下载 freekeyAutomation.ahk
 # 2. 双击运行 (需安装 AutoHotkey v1.1+)
 # 3. 按 F10 打开配置面板
 # 4. 添加触发器 → 取色 → 保存
 # 5. 按 Capslock 启动自动化
 
 # 也可命令行运行:
-AutoHotkey.exe ColorKeyAutomation.ahk
+AutoHotkey.exe freekeyAutomation.ahk
 ```
 
 ---
 
 > **License**: MIT  
 > **Language**: AutoHotkey v1.1+  
-> **File**: `ColorKeyAutomation.ahk` (单文件, 1033行)  
+> **File**: `freekeyAutomation.ahk` (单文件, 1033行)  
 > **Config**: `config.ini` (自动生成)
