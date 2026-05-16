@@ -1,4 +1,4 @@
-﻿; ============================================================
+; ============================================================
 ;  freekeyAutomation.ahk  —  游戏取色识别按键循环工具
 ;  版本: v1.0
 ;  语言: AutoHotkey v1 (AHK v1.1+)
@@ -46,6 +46,9 @@ global triggerCount := 0
 ; --- 顺序执行状态 ---
 global currentTriggerIdx := 1   ; 当前检查的触发器索引(1-based)
 global waitUntilTick := 0       ; 等待到此时间戳后才执行下一个
+
+; --- 缓存 HWND ---
+global g_btnSaveHwnd := 0
 
 ; --- 取色状态 ---
 global isPicking := 0
@@ -589,18 +592,28 @@ ShowConfigPanel:
 
     ; ====== Tab2: 全局设置 ======
     Gui, Tab, 2
-    Gui, Config:Add, GroupBox, x10 y+10 w300 h150, 热键设置
+    ; 按钮放在最前面创建（确保它是第一个可聚焦控件），先隐藏稍后定位
+    Gui, Config:Add, Button, x10 y10 vBtnSaveGlobalSettings gSaveGlobalSettings Default Hidden, 保存设置
+    GuiControlGet, g_btnSaveHwnd, Hwnd, BtnSaveGlobalSettings  ; 缓存按钮句柄
+
+    ; 热键设置
+    Gui, Config:Add, GroupBox, x10 y10 w300 h150, 热键设置
     Gui, Config:Add, Text, x20 yp+25, 启动/停止:
     Gui, Config:Add, Hotkey, x+5 w100 vEditStartHotkey, %startHotkey%
     Gui, Config:Add, Text, x20 y+10, 面板热键:
     Gui, Config:Add, Hotkey, x+5 w100 vEditPanelHotkey, %panelHotkey%
 
+    ; 循环设置
     Gui, Config:Add, GroupBox, x10 y+20 w300 h120, 循环设置
     Gui, Config:Add, Text, x20 yp+25, 检测间隔(ms):
     Gui, Config:Add, Edit, x+5 w60 vEditLoopInterval, %loopInterval%
     Gui, Config:Add, Text, x+5, (10-1000)
 
-    Gui, Config:Add, Button, x10 y+15 gSaveGlobalSettings, 保存设置
+    ; 将按钮移到"循环设置"GroupBox下方 15px 处并显示
+    GuiControlGet, lp, Pos, EditLoopInterval
+    btnY := lpY + lpH + 15
+    GuiControl, Move, BtnSaveGlobalSettings, x10 y%btnY%
+    GuiControl, Show, BtnSaveGlobalSettings
 
     Gui, Tab
     Gui, Config:Show, AutoSize Center
@@ -630,7 +643,7 @@ return
 
 ; Tab切换事件
 ConfigTabSwitch:
-    ; 不做特殊处理
+    ; 按钮在 Tab 2 中创建顺序排第一，对话框管理器会自动聚焦到它
 return
 
 ; ListView事件
